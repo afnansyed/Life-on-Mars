@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a041c1bc683fc443b44612de90a5fa8, type: 3}
+  m_Name: PurpleTree
+  m_EditorClassIdentifier: Assembly-CSharp::TreeSeed
+  axiom: F
+  rules:
+  - predecessor: F
+    replacement: 'F[&+F][&-F][^+F][^-F]'
+    probability: 0.8
+  - predecessor: 'F[&+F]'
+    replacement: 'F[^+F][^-F]'
+    probability: 0.4
+  angle: 33
+  stepLength: 1
+  baseRadius: 0.2
+  radiusFalloff: 0.6
+  maxIterations: 5
+  branchSides: 4
+  barkMaterial: {fileID: 2100000, guid: 34dff4a508f159c42a7508a6a9c914cf, type: 2}
+  leafMaterial: {fileID: 0}
+  leafPrefab: {fileID: 8497969736927004031, guid: 4759e91ddb65f0f45848d2d6da24abbd, type: 3}
+  leafScale: 1
+  leafDensity: 3
+  oxygenMulitplier: 1
+  growthDurationSeconds: 100
+  growthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  randomSeed: 42
