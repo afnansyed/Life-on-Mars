@@ -19,7 +19,6 @@ public class PlanetManager : MonoBehaviour
 
     [Header("Player")]
     public float basePlayerOxygenLoss = 5f;
-
     public float minPlayerOxygenLoss = 0.5f;
 
     // events for other systems to subscribe to
