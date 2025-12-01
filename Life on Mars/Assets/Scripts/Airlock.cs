@@ -1,16 +1,22 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using TMPro;
 
 public class Airlock : MonoBehaviour
 {
     public Transform Outdoor;
     public Transform Indoor;
     public ParticleSystem[] pressurizeEffects;
+    public TMP_Text oxygenText;
+    public Image oxygenFlash;
 
     private float ChangeDistance = 3f;
     private float DoorSpeed = 2f;
     private float AnimationTime = 5f;
     private float DelayTime = 2f;
+    private float OxygenTick = 2f;
+    private int Oxygen = 100;
 
     private Vector3 OutDoorOpenPos;
     private Vector3 InDoorOpenPos;
@@ -27,6 +33,8 @@ public class Airlock : MonoBehaviour
 
         OutDoorClosedPos = OutDoorOpenPos + Vector3.up * ChangeDistance;
         InDoorOpenPos = InDoorClosedPos - Vector3.up * ChangeDistance;
+
+        StartCoroutine(OxygenRoutine());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -71,6 +79,82 @@ public class Airlock : MonoBehaviour
         while (Vector3.Distance(door.position, targetPos) > 0.01f)
         {
             door.position = Vector3.MoveTowards(door.position, targetPos, DoorSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    private IEnumerator OxygenRoutine()
+    {
+        while (true)
+        {
+            if (isOpen)
+            {
+                if (Oxygen > 0)
+                    Oxygen -= 1;
+                oxygenText.text = "Oxygen: " + Oxygen.ToString();
+                StartCoroutine(FlashOxygenDepleting());
+                yield return new WaitForSeconds(OxygenTick);
+            }
+            else
+            {
+                if (Oxygen < 100)
+                {
+                    Oxygen += 5;
+                    if (Oxygen > 100)
+                        Oxygen = 100;
+                    oxygenText.text = "Oxygen: " + Oxygen.ToString();
+                    if(Oxygen >= 20)
+                        StartCoroutine(FlashOxygenIncrease());
+                }
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+    }
+
+    private IEnumerator FlashOxygenIncrease()
+    {
+        Color noColor = new Color(1f, 1f, 1f, 0f);
+        oxygenFlash.color = noColor;
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 5f;
+            Color c = oxygenFlash.color;
+            c.a = Mathf.Lerp(0f, 0.2f, t);
+            oxygenFlash.color = c;
+            yield return null;
+        }
+        t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 5f;
+            Color c = oxygenFlash.color;
+            c.a = Mathf.Lerp(0.2f, 0f, t);
+            oxygenFlash.color = c;
+            yield return null;
+        }
+    }
+
+    private IEnumerator FlashOxygenDepleting()
+    {
+        Color redColor = new Color(1f, 0f, 0f, 0f);
+        oxygenFlash.color = redColor;
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 5f;
+            Color c = oxygenFlash.color;
+            c.a = Mathf.Lerp(0f, 1f, t);
+            oxygenFlash.color = c;
+            yield return null;
+        }
+        t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 5f;
+            Color c = oxygenFlash.color;
+            c.a = Mathf.Lerp(1f, 0f, t);
+            oxygenFlash.color = c;
             yield return null;
         }
     }
