@@ -1,5 +1,7 @@
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlanetManager : MonoBehaviour
 {
@@ -24,6 +26,8 @@ public class PlanetManager : MonoBehaviour
     // events for other systems to subscribe to
     public event Action<float> OnOxygenLevelChanged;
     public event Action<float> OnAtmosphereQualityChanged;
+
+    public TMP_Text oxygenText;
 
     private float activeMatureTrees = 0;
 
@@ -54,6 +58,7 @@ public class PlanetManager : MonoBehaviour
             float qualityGain = (oxygenLevel - atmosphereQuality) * 0.05f * Time.deltaTime;
             ModifyAtmosphereQuality(qualityGain);
         }
+        oxygenText.text = "Mars O2: " + oxygenLevel;
     }
 
     public void RegisterMatureTree(float amount)
