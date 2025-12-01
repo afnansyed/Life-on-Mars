@@ -91,7 +91,8 @@ public class Airlock : MonoBehaviour
             {
                 if (Oxygen > 0)
                     Oxygen -= 1;
-                oxygenText.text = "Oxygen: " + Oxygen.ToString();
+                oxygenText.text = "Player O2: " + Oxygen.ToString();
+                if(Oxygen < 20)
                 StartCoroutine(FlashOxygenDepleting());
                 yield return new WaitForSeconds(OxygenTick);
             }
@@ -102,9 +103,8 @@ public class Airlock : MonoBehaviour
                     Oxygen += 5;
                     if (Oxygen > 100)
                         Oxygen = 100;
-                    oxygenText.text = "Oxygen: " + Oxygen.ToString();
-                    if(Oxygen >= 20)
-                        StartCoroutine(FlashOxygenIncrease());
+                    oxygenText.text = "Player O2: " + Oxygen.ToString();
+                    StartCoroutine(FlashOxygenIncrease());
                 }
                 yield return new WaitForSeconds(0.5f);
             }
