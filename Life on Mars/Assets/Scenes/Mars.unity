@@ -96391,6 +96391,8 @@ MonoBehaviour:
   basePlayerOxygenLoss: 5
   minPlayerOxygenLoss: 0.5
   oxygenText: {fileID: 298289202}
+  terrain: {fileID: 1418620345}
+  terrainBlendStrength: 1
 --- !u!4 &2041084810
 Transform:
   m_ObjectHideFlags: 0

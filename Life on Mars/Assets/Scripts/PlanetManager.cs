@@ -31,6 +31,14 @@ public class PlanetManager : MonoBehaviour
 
     private float activeMatureTrees = 0;
 
+    [Header("Terrain")]
+    public Terrain terrain;
+    public float terrainBlendStrength = 1.0f;
+    private float[,,] splatmapData;
+    private int mapWidth;
+    private int mapHeight;
+    private float timer = 0f;
+
     private void Awake()
     {
         if (Instance == null)
@@ -43,6 +51,47 @@ public class PlanetManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void Start()
+    {
+        // clone so it doesn't overwrite the default
+        terrain.terrainData = Instantiate(terrain.terrainData);
+
+        TerrainData td = terrain.terrainData;
+
+        mapWidth = td.alphamapWidth;
+        mapHeight = td.alphamapHeight;
+
+        splatmapData = td.GetAlphamaps(0, 0, mapWidth, mapHeight);
+    }
+
+    private void UpdateTerrainTexture(float oxygenLevel)
+    {
+        TerrainData td = terrain.terrainData;
+        int layerCount = td.terrainLayers.Length;
+
+        int marsIndex = 0;
+        int grassIndex = 1;
+
+        for (int y = 0; y < mapHeight; y++)
+        {
+            for (int x = 0; x < mapWidth; x++)
+            {
+                float noise = Mathf.PerlinNoise(x * 0.01f, y * 0.01f);
+                float greenAmount = Mathf.Clamp01(oxygenLevel * 2 * noise);
+
+                // clear layers first
+                for (int i = 0; i < layerCount; i++)
+                    splatmapData[y, x, i] = 0f;
+
+                splatmapData[y, x, marsIndex] = 1f - greenAmount;
+                splatmapData[y, x, grassIndex] = greenAmount;
+            }
+        }
+
+        terrain.terrainData.SetAlphamaps(0, 0, splatmapData);
+    }
+
 
     private void Update()
     {
@@ -59,6 +108,13 @@ public class PlanetManager : MonoBehaviour
             ModifyAtmosphereQuality(qualityGain);
         }
         oxygenText.text = "Mars O2: " + oxygenLevel;
+
+        timer += Time.deltaTime;
+        if (timer > 5f)
+        {
+            UpdateTerrainTexture(oxygenLevel);
+            timer = 0f;
+        }
     }
 
     public void RegisterMatureTree(float amount)

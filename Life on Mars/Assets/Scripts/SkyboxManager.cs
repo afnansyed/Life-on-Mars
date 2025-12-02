@@ -27,6 +27,7 @@ public class SkyboxManager : MonoBehaviour
 
     void UpdateSky(float o2)
     {
+        Debug.Log("SKY UPDATED");
         RenderSettings.skybox.SetColor("_SkyTint", skyTintOverOxygen.Evaluate(o2));
     }
 }
