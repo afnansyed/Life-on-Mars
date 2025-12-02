@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 8559032764003958526}
   - component: {fileID: 2714515616551099945}
   - component: {fileID: 9052123309526769203}
-  - component: {fileID: 7898678473007596468}
   - component: {fileID: 7200072499721109570}
+  - component: {fileID: 2077202040351065670}
   m_Layer: 0
-  m_Name: Seed
+  m_Name: PurpleSeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,12 +51,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeedObject
   seedType: {fileID: 11400000, guid: aeb1bea560fad504f899c50bf188cd2a, type: 2}
-  plantingRayDistance: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
-  plantingIndicatorPrefab: {fileID: 0}
-  plantingHoldTime: 0.5
   plantPrefab: {fileID: 4363224560789034936, guid: be678607422698442b10abd3ecb160d5, type: 3}
 --- !u!54 &1543045027845024717
 Rigidbody:
@@ -67,7 +64,7 @@ Rigidbody:
   m_GameObject: {fileID: 47068585660355344}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.05
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -99,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 7898678473007596468}
+  - {fileID: 2077202040351065670}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -258,7 +255,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5605289326131794027, guid: cac7ea9156d200c49a513265b953f9aa, type: 3}
+  - {fileID: 2100000, guid: c3be45d3ff5e01f4c895851cb9596f15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -281,27 +278,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7898678473007596468
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 47068585660355344}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.13206162
-  m_Center: {x: -0.00027030706, y: 0.065083764, z: -0.00020511821}
 --- !u!114 &7200072499721109570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,3 +301,24 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.25
   m_MaximumScaleRatio: 2
   m_ScaleMultiplier: 0.25
+--- !u!65 &2077202040351065670
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47068585660355344}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.25, y: 0.12, z: 0.18}
+  m_Center: {x: -0.00027030706, y: 0.065083764, z: -0.00020511821}
