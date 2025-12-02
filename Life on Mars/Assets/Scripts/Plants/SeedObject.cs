@@ -8,12 +8,7 @@ public class SeedObject : MonoBehaviour
 {
     [Header("Seed Data")]
     public TreeSeed seedType;
-
-    [Header("Planting Settings")]
-    public float plantingRayDistance = 2f;
     public LayerMask groundLayer;
-    public GameObject plantingIndicatorPrefab;
-    public float plantingHoldTime = 0.5f;
 
     [Header("Plant Prefab")]
     public GameObject plantPrefab;
